@@ -1,7 +1,7 @@
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-
+//This class implements Thread pooling and tasks are running
 public class CustomThreadPool 
 {
     //Thread pool size
@@ -62,7 +62,7 @@ public class CustomThreadPool
         
     }
  
-    //Shutting down all threads
+    //Shutting down all pools
     public void shutdown() {
     	try {
 			TimeUnit.SECONDS.sleep(5);
