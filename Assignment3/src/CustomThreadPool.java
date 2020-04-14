@@ -12,9 +12,8 @@ public class CustomThreadPool
      
     // FIFO ordering
     private final LinkedBlockingQueue<Runnable> queue;
-    
-    private boolean exit;
  
+    //Constructor where all threads created
     public CustomThreadPool(int poolSize) 
     {
         this.poolSize = poolSize;
@@ -26,7 +25,8 @@ public class CustomThreadPool
             workers[i].start();
         }
     }
- 
+    
+    // All tasks added to queue and notify Thread
     public void execute(Runnable task) {
         synchronized (queue) {
             queue.add(task);
@@ -34,6 +34,7 @@ public class CustomThreadPool
         }
     }
  
+    // Where all tasks executed and thread are assigned for tasks
     private class WorkerThread extends Thread {
         public void run() {
             Runnable task;
@@ -61,6 +62,7 @@ public class CustomThreadPool
         
     }
  
+    //Shutting down all threads
     public void shutdown() {
     	try {
 			TimeUnit.SECONDS.sleep(5);
