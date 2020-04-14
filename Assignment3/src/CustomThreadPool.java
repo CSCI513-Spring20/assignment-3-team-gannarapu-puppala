@@ -1,9 +1,7 @@
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
-//import jdk.internal.org.jline.utils.ShutdownHooks.Task;
 
- 
-//@SuppressWarnings("unused")
 public class CustomThreadPool 
 {
     //Thread pool size
@@ -14,6 +12,8 @@ public class CustomThreadPool
      
     // FIFO ordering
     private final LinkedBlockingQueue<Runnable> queue;
+    
+    private boolean exit;
  
     public CustomThreadPool(int poolSize) 
     {
@@ -48,6 +48,7 @@ public class CustomThreadPool
                         }
                     }
                     task = (Runnable) queue.poll();
+                    
                 }
  
                 try {
@@ -57,13 +58,21 @@ public class CustomThreadPool
                 }
             }
         }
+        
     }
  
     public void shutdown() {
-        System.out.println("Shutting down thread pool");
+    	try {
+			TimeUnit.SECONDS.sleep(5);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.out.println("Shut down all pools");
         for (int i = 0; i < poolSize; i++) {
-            workers[i] = null;
+            workers[i] = null ;
         }
+        System.exit(0);
     }
 }
 
